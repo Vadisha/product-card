@@ -1,0 +1,93 @@
+*{
+ box-sizing: border-box;
+ margin: 0px;
+ padding: 0px;
+ font-family: 'Montserrat', 'Arial';
+ font-size: 13px;
+ line-height: 18px;
+ color: #515076;
+ font-weight: 400;
+}
+
+.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    margin-bottom: -300px;
+    padding: 0;
+    width: 790px;
+    height: 697px;
+    margin-left: 197px;
+    margin-top:1px ;
+  }
+
+.title-pager {
+  position: absolute;
+  font-size: 70px;
+  line-height: 78px;
+  text-align: center;
+  width: 846px;
+  height: 78px;
+  top: 220px;
+  left: 417px;
+  color: rgba(80, 80, 118, 1);
+}
+
+.product-list {
+    display: flex;
+    gap: 45px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card-container {
+  width: 347px;
+  height: 573px;
+  padding: 25px;
+  background-color: #F7F7FA;
+  box-shadow: 2px 2px 10px 0px #5150761A;
+  margin-left: 50px;
+  margin-top:50px ;
+}
+
+.Product-category {
+  font-size: 12px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color:  #A5A3B9;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.Product-name {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 27px;
+}
+
+.Product-description {
+  margin-bottom: 15px;
+}
+
+.Product-compound {
+  margin-top: 5px;
+  list-style: circle;
+  margin-bottom: 25px;
+}
+
+.Product-compound-item {
+  margin-left: 13px;
+}
+
+.Product-price-lable {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.Product-price {
+  font-size: 20px;
+  line-height: 24px;
+}
+
