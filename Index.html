@@ -1,33 +1,123 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product cards</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
     <main>
-        <div>
-            <img src="images/photo 1.png" alt="img1">
-            <div>ДЛЯ НОРМАЛЬНОЙ КОЖИ</div>
-            <h2>Увлажняющий мусс</h2>
-            <p>Глубоко увлажняют кожу лица, оставляя её мягкой и гладкой.</p>
+        <div class="background_container">
+            <h1 class="product-selection">Выбери свой продукт</h1>
+        </div>
+            <ul class="product-list">
+        <li>
+        <div class="card-container">
+            <img src="images/moist-mousse.png" alt="Увлажняющий_мусс" width="290" height="245">
+            <span class="product-category">Для нормальной кожи</span>
+            <h3 class="product-name">Увлажняющий мусс</h3>
+            <p class="product-description">Глубоко увлажняют кожу лица, оставляя её мягкой и гладкой.</p>
             <div>
-                <strong>Состав:</strong>
-                <ul>
-                    <li>активные натуральные комплексы</li>
-                    <li>витамины C, A, PP, B И E</li>
-                    <li>солнцезащитные компоненты</li>
+                <span>состав:</span>
+                <ul class="product-compound">
+                    <li class="product-compound-item">активные натуральные комплексы</li>
+                    <li class="product-compound-item">витамины C, A, PP, B И E</li>
+                    <li class="product-compound-item">солнцезащитные компоненты</li>
                 </ul>
             </div>
+        
+            <div class="product-price-container">
+                <span class="product-price-label">Цена:</span>
+                <span class="product-price">2 750 &#8381;</span>
+            </div>
+        </div>  
+        </li>
+        <li>
+          <div class="card-container">
+            <img src="images/moist-mask.png" alt="Увлажняющая_маска" width="290" height="245">
+            <span class="product-category">Для нормальной кожи</span>
+            <h3 class="product-name">Увлажняющая маска</h3>
+            <p class="product-description">Способствует удерживанию влаги в верхних слоях кожи.</p>
             <div>
-                <strong>Цена:</strong>
-                <div>2 750 <span>&#8381;</span></div>
+                <span>состав:</span>
+                <ul class="product-compound">
+                    <li class="product-compound-item">воски</li>
+                    <li class="product-compound-item">минералы</li>
+                    <li class="product-compound-item">масла</li>
+                </ul>
+            </div>
+            <div class="product-price-container">
+                <span class="product-price-label">Цена:</span>
+                <span class="product-price">3 500 &#8381;</span>
             </div>
         </div>
+        </li>
+        <li>
+          <div class="card-container">
+            <img src="images/face-gel.png" alt="Гель_для_умывания" width="290" height="245">
+            <span class="product-category">Для нормальной кожи</span>
+            <h3 class="product-name">гель Для умывания</h3>
+            <p class="product-description">Интенсивно очищает, не повреждает защитный барьер кожи.</p>
+            <div>
+                <span>состав:</span>
+                <ul class="product-compound">
+                    <li class="product-compound-item">минералы</li>
+                    <li class="product-compound-item">витамины C, A, PP, B И E</li>
+                    <li class="product-compound-item">солнцезащитные компоненты</li>
+                </ul>
+            </div>
+            <div class="product-price-container">
+                <span class="product-price-label">Цена:</span>
+                <span class="product-price">1 650 &#8381;</span>
+            </div>
+        </div>
+        </li>
+        <li>
+          <div class="card-container">
+            <img src="images/gift-set_1.png" alt="Подарочный_набор_№1" width="290" height="245">
+            <span class="product-category">Для нормальной кожи</span>
+            <h3 class="product-name">Подарочный набор №1</h3>
+            <p class="product-description">Набор, состоящий из увлажняющего крема и маски.</p>
+            <div>
+                <span>состав:</span>
+                <ul class="product-compound">
+                    <li class="product-compound-item">воски</li>
+                    <li class="product-compound-item">минералы</li>
+                    <li class="product-compound-item">масла</li>
+                </ul>
+            </div>
+            <div class="product-price-container">
+                <span class="product-price-label">Цена:</span>
+                <span class="product-price">4 750 &#8381;</span>
+            </div>
+        </div>
+        </li>
+        <li>
+          <div class="card-container">
+            <img src="images/gift-set_5.png" alt="Подарочный_набор_№5" width="290" height="245">
+            <span class="product-category">Для нормальной кожи</span>
+            <h3 class="product-name">Подарочный набор №5</h3>
+            <p class="product-description">Весь набор средств Invisible symphony, крем, маска, мусс и гель для умывания.</p>
+            <div>
+                <span>состав:</span>
+                <ul class="product-compound">
+                    <li class="product-compound-item">воски</li>
+                    <li class="product-compound-item">минералы</li>
+                    <li class="product-compound-item">масла</li>
+                </ul>
+            </div>
+            <div class="product-price-container">
+                <span class="product-price-label">Цена:</span>
+                <span class="product-price">7 520 &#8381;</span>
+            </div>
+        </div>
+        </li>
+    </ul>
     </main>
+    
 </body>
 </html>
