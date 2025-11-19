@@ -1,3 +1,5 @@
+'use strict'
+
 //1. Функция которая принимает 2 параметра: город и температуру и выводит сообщение в консоль 
 
 const showTemperature = (city, temperature) => {
@@ -24,7 +26,7 @@ function checkSpeed(speed) {
 //3.Создать переменную №1, которая содержит продукт и переменную №2, которая содержит его цену (на ваше усмотрение). Далее создаем функцию, которая принимает 1 параметр - текущий бюджет, внутри функции происходит проверка: если бюджет превышает цену товара - выводим лог "(ваше название товара) приобретён. Спасибо за покупку!", если нет - обсчитываем разницу и выводим лог "Вам не хватает X$, пополните баланс". 
 const totalBudget = 1000;
 
-function getPriceProduct(product, price) {
+function purchaseProduct(product, price) {
   if (price <= totalBudget) {
       console.log(`${product} приобретен за ${price} руб. Спасибо за покупку`);
   } else {
@@ -32,15 +34,16 @@ function getPriceProduct(product, price) {
       console.log(`Вам не хватает: ${difference} руб. пополните баланс!`);
   }
 }
+
+
+
 // Примеры использования:
-getPriceProduct("Хлеб", 500);  
-// Хлеб приобретен за 500 руб. Спасибо за покупку!
+purchaseProduct("Хлеб", 500);
+purchaseProduct("Чай", 1200);
+purchaseProduct("Ноутбук", 2500);
 
-getPriceProduct("Чай", 1200);  
-// Вам не хватает: 200 руб. пополните баланс!
 
-getPriceProduct("Ноутбук", 2500);  
-// Вам не хватает: 1500 руб. пополните баланс!
+purchaseProduct()
 
 
 //4. Создание собственной функции
@@ -54,12 +57,14 @@ const buyProduct = (product, price) => {
         console.log(`Поздравляю Вас с успешной покупкой продукта ${product}`);
     }
 }
-// Примеры использования:
-buyProduct("Хлеб", 500);   // Поздравляю Вас с успешной покупкой продукта "Хлеб"
-buyProduct("Чай", 1500);   // Извините, на "Чай" не хватает средств на кошельке
+
+buyProduct("Хлеб", 500);
+buyProduct("Чай", 1500);
+
+buyProduct();
 
 //5. Создание 3-х переменных
 
-const userCartTotal = 0;        // Общая сумма корзины
-const availableBalance = 5000;  // Доступный баланс
-const discountPercentage = 15;  // Процент скидки
+const userCartTotal = 0;
+const availableBalance = 5000;
+const discountPercentage = 15;
