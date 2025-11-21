@@ -1,9 +1,7 @@
-'use strict' // нашел эту команду в одном из роликов ютуб,строгий режим, для раннего обнаружения ошибок
-
 // 3. Создал объект на основе своих данных. 
 
-const candidate = {
-  name: "Вадим",
+const user = {
+  name: "Вадим Фазлиахметов",
   age: 36,
   city: "Sterlitamak",
   country: "Russia",
@@ -11,9 +9,8 @@ const candidate = {
   children: "there's"
 }
 
-console.log(Object.keys(candidate));
-console.log(Object.values(candidate));
-console.log(Object.entries(candidate));
+console.log(Object.entries(user));
+
 
 // 4.Создал объект, который будет хранить данные об автомобиле 
 
@@ -26,27 +23,16 @@ const infoAboutVehicle = {
   consumption: "6,8-10,2"
 }
 
-const infoVehicleOwner = {
-  ownerName: "Вадим Фазлиахметов",
-  registrationDate: "12 марта 2015",
-  vehicleAge: "12 лет 6 месяцев",
-  vehicleMaker: "Exeed CLX"
-}
+infoAboutVehicle.vehicleOwner = user.name;
 
+console.log(infoAboutVehicle);
 
-const vehicleOwnerInfo =  {...infoVehicleOwner, ...infoAboutVehicle}
-
-console.log(Object.keys(infoAboutVehicle));
-console.log(Object.values(infoAboutVehicle));
-console.log(Object.entries(infoAboutVehicle));
-
-console.log (vehicleOwnerInfo);
 
 //5. Написал функцию которая аргументом будет принимать объект, описанный в пункте №4. 
 
 function checkAndAddMaxSpeed(infoAboutVehicle) {
-  if (!("maxSpeed" in infoAboutVehicle)) {
-    infoAboutVehicle.maxSpeed = "максимальная скорость 185 км/ч";
+  if (!("max-speed" in infoAboutVehicle)) {
+    infoAboutVehicle.maxSpeed = 185;
   }
 }
 checkAndAddMaxSpeed(infoAboutVehicle);
@@ -56,9 +42,9 @@ console.log(infoAboutVehicle);
 
 // 6.Написать функцию, которая получает первым аргументом  — объект, а вторым аргументом — свойство объекта, которое нужно вывести и выводит его значение.
 
-const field = prompt ("Что показать? (ownerName, registrationDate или vehicleMaker)");
+const field = prompt("Что показать? (vehicleMaker, engine или vehicleOwner)");
 
-console.log(infoVehicleOwner[field]);
+console.log(infoAboutVehicle[field]);
 
 //7. Создать массив, который содержит названия продуктов (просто строки)
 
@@ -127,9 +113,15 @@ console.log(allBooks);
 
 // 10. Почитать про метод массива — map. Написать функцию, которая принимает массив сущностей с задания №9. Добавляем новое свойство для объекта "isRare (это редкий)" и в зависимости от года выпуска книги (или какой-то логики, связанной с вашей сущностью), устанавливаем true или false. Что я хочу этим сказать: если книга выпущена позже 2000 года, устанавливаем true (да, это редкий), нет - false (значит это не редкий).
 
-books.forEach(books => {
-  books.isRare = books.year < 1950;
-});
+function addRareProperty(booksArray) {
+  return booksArray.map(book => {
+    return {
+      ...book,
+      isRare: book.year < 1950
+    };
+  });
+}
 
+const booksWithRareProperty = addRareProperty(books);
 console.log("Книги с свойством isRare:");
-console.log(books);
+console.log(booksWithRareProperty);
