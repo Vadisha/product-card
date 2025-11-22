@@ -23,19 +23,19 @@ const infoAboutVehicle = {
   consumption: "6,8-10,2"
 }
 
-infoAboutVehicle.vehicleOwner = user.name;
+infoAboutVehicle.owner = user;
 
 console.log(infoAboutVehicle);
 
 
 //5. Написал функцию которая аргументом будет принимать объект, описанный в пункте №4. 
 
-function checkAndAddMaxSpeed(infoAboutVehicle) {
-  if (!("max-speed" in infoAboutVehicle)) {
+function checkMaxSpeed(infoAboutVehicle) {
+  if (!vehicle.hasOwnProperty("maxSpeed")) {
     infoAboutVehicle.maxSpeed = 185;
   }
 }
-checkAndAddMaxSpeed(infoAboutVehicle);
+checkMaxSpeed(infoAboutVehicle);
 
 console.log("После вызова функции:");
 console.log(infoAboutVehicle); 
