@@ -47,12 +47,15 @@ console.log(bookAuthorFilters)
 
 //4. Написать функцию, которая аргументом будет принимать массив и изменять его порядок на противоположный ("переворачивать") . Два вышеуказанных массива с помощью этой функции перевернуть.
 
-numbers.reverse()
+function reverseArrays(array) {
+  return array.reverse()
+}
 
-books.reverse()
+reverseArrays(books);
+reverseArrays(numbers);
 
-console.log(numbers)
-console.log(books)
+console.log(books);
+console.log(numbers);
 
 //7. Вывести в консоль массив тех комментариев, почта пользователей которых содержит ".com"
 
@@ -61,18 +64,10 @@ console.log(searchComments)
 
 //8. Перебрать массив таким образом, что бы пользователи с id меньше или равно 5 имели postId: 2, а те, у кого id больше 5, имели postId: 1
 
-const updatedComments = comments.map(comment => {
-  
-  const updatedComment = { ...comment };
-
-  if (updatedComment.id <= 5) {
-    updatedComment.postId = 2;
-  } else {
-    updatedComment.postId = 1;
-  }
-  
-  return updatedComment;
-});
+const updatedComments = comments.map(comment => ({
+  ...comment,
+  postId: comment.id <= 5 ? 2 : 1
+}));
 
 //9. Перебрать массив, что бы объекты состояли только из айди и имени
 
@@ -85,9 +80,26 @@ console.log(simplifiedComments);
 
 //10. Перебираем массив, добавляем объектам свойство isInvalid и проверяем: если длина тела сообщения (body) больше 180 символов - устанавливаем true, меньше - false.
 
-const commentIsInvalid = comment.map(comment => ({ ...comment, isInvalid: comment.body.length <= 180}))
-console.log(commentsIsInvalid)
+const commentIsInvalid = comments.map(comment => ({ ...comment, isInvalid: comment.body.length <= 180}));
 
 
+//11. Почитать про метод массива reduce. Используя его, вывести массив почт и провернуть тоже самое с помощью метода map
 
+const outputEmail = comments.reduce((acc, user) => {
+  acc.push(user.email);
+  return acc;
+}, []);
 
+console.log(outputEmail);
+
+const outputEmailMap = comments.map(comment => ({ email: comment.email }));
+
+console.log(outputEmailMap);
+
+//12. Почитать про методы toString(), join() и перебрав массив с задания №11, привести его к строке.
+
+const emailList = outputEmailMap.toString()
+const emailJoin = outputEmailMap.join('|')
+
+console.log(emailList)
+console.log(emailJoin)
