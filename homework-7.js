@@ -47,12 +47,12 @@ console.log(bookAuthorFilters)
 
 //4. Написать функцию, которая аргументом будет принимать массив и изменять его порядок на противоположный ("переворачивать") . Два вышеуказанных массива с помощью этой функции перевернуть.
 
-function reverseArrays(array) {
+function reverseArray(array) {
   return array.reverse()
 }
 
-reverseArrays(books);
-reverseArrays(numbers);
+reverseArray(books);
+reverseArray(numbers);
 
 console.log(books);
 console.log(numbers);
