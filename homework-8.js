@@ -9,7 +9,7 @@ const productsList = document.getElementById('products-list');
 
 products.forEach(product => {
   const productClone = productsTemplate.content.cloneNode(true);
-  productClone.querySelector('.product-image').textContent = product.image
+  productClone.querySelector('.product-image').scr = `/assets/${product.img}.png`
   productClone.querySelector('.product-category').textContent = product.category
   productClone.querySelector('.product-name').textContent = product.name
   productClone.querySelector('.product-description').textContent = product.description
