@@ -10,6 +10,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <ul id="products-list"></ul>
+    
+    <template id="products-template">
+        <li>
+            <p class="product-image"></p>
+            <p class="product-category"></p>
+            <p class="product-name"></p>
+            <p class="product-description"></p>
+            <p class="product-composition"></p>
+            <p class="product-price"></p>
+        </li>
+    </template>
+    
     <button id="change-color-all-card">Сменить цвет всех карточек</button>    
     <button id="change-color-first-card">Сменить цвет одной карточки</button>
     <main>
@@ -62,7 +75,7 @@
           <div class="card-container">
             <img src="images/face-gel.png" alt="Гель_для_умывания" width="290" height="245">
             <span class="product-category">Для нормальной кожи</span>
-            <h3 class="product-name">гель Для умывания</h3>
+            <h3 class="product-name">гель для умывания</h3>
             <p class="product-description">Интенсивно очищает, не повреждает защитный барьер кожи.</p>
             <div>
                 <span>состав:</span>
@@ -120,7 +133,6 @@
         </li>
     </ul>
     </main>
-      <script src="homework-5.js"></script>
-      <script src="homework-6.js"></script>
+    <script type="module" src="homework-8.js"></script>
 </body>
 </html>
