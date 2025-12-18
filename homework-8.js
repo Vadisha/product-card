@@ -4,27 +4,44 @@ import { products } from "./products.js";
 
 //3. По аналогии из лекции — создать и реализовать шаблон для продуктовых карточек.
 
-const productsTemplate = document.getElementById("card-template");
 const productsList = document.getElementById("products-list");
+const productTemplate = document.getElementById("product-template");
 
-function fillTemplate(clone, product) { 
-  productClone.querySelector(".product_image").scr = `/images/${product.imgName}.png`
-  productClone.querySelector(".product_image").alt = product.name;
-  productClone.querySelector(".product-category").textContent = product.category
-  productClone.querySelector(".product_name").textContent = product.name
-  productClone.querySelector(".product_description").textContent = product.description
+function createProductCards(productsArray) {
+  productsList.innerHTML = '';
   
-  const compList = Clone.querySelector(".product_composition");
-  compList.textContent = 'Состав';
-   product.composition.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    productList.appendChild(li);
+  productsArray.forEach(product => {
+    const productClone = productTemplate.content.cloneNode(true);
+    
+    // Заполняем данные
+    productClone.querySelector(".product_image").src = `/images/${product.imgName}.png`;
+    productClone.querySelector(".product_image").alt = product.name;
+    productClone.querySelector(".product-category").textContent = product.category;
+    productClone.querySelector(".product_name").textContent = product.name;
+    productClone.querySelector(".product_description").textContent = product.description;
+
+    const compList = productClone.querySelector(".product_composition");
+    const titleSpan = compList.querySelector("span"); // если заголовок уже есть в шаблоне
+    if (!titleSpan) {
+      const title = document.createElement("span");
+      title.textContent = 'Состав:';
+      compList.appendChild(title);
+    }
+    
+    product.composition.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      compList.appendChild(li);
+    });
+    
+    productClone.querySelector(".product_price-text").textContent = 'Цена:';
+    productClone.querySelector(".product_price").textContent = `${product.price}₽`;
+    
+    productsList.appendChild(productClone);
   });
-  
-  productClone.querySelector(".product_price-text").textContent = 'Цена';
-  productClone.querySelector(".product_price").textContent = `${product.price}₽`;
-};
+  console.log(createProductCards(products));
+}
+
 
 //4. Используя метод .reduce(), получить строку, которая состоит из названий продуктовых карточек, разделенных точкой с запятой
 
@@ -42,18 +59,23 @@ const getNameAndDescriptionWithReduce = products.reduce((acc, product) => {
 
 //6*. Реализовать функцию, которая при старте нашей страницы выводит сообщение с текстом, мол "Сколько карточек отобразить? От 1 до 5" и в зависимости от результата - будет выводить это количество. Должна быть защита от введенных других значений (имеется ввиду проверка if).
 
-function renderCards(count) {
+function renderCards(count = products.length) {
+  // Очищаем контейнер
   productsList.innerHTML = "";
-
-  const limitedProducts = products.slice(0, count);
-
+  
+  const limitedProducts = count ? products.slice(0, count) : products;
+  
+  const fragment = document.createDocumentFragment();
+  
   limitedProducts.forEach(product => {
     const clone = template.content.cloneNode(true);
-
     fillTemplate(clone, product);
-
-    productsList.appendChild(clone);
+    fragment.appendChild(clone);
   });
+
+  productsList.appendChild(fragment);
+
+  return limitedProducts.length;
 }
 
 function askProductCount() {
