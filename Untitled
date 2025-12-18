@@ -1,0 +1,30 @@
+// Находим форму и поле ввода email
+const footerForm = document.querySelector('.footer__form');
+const footerEmailInput = document.querySelector('#footer-email');
+
+// Простая проверка email через регулярное выражение
+function isValidEmail(email) {
+  // базовая валидация, без излишней строгости
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailPattern.test(email);
+}
+
+// Обрабатываем отправку формы
+footerForm.addEventListener('submit', (event) => {
+  event.preventDefault(); // запрещаем стандартную отправку
+
+  const emailValue = footerEmailInput.value.trim();
+
+  // Проверка: поле не пустое и соответствует шаблону
+  if (!emailValue || !isValidEmail(emailValue)) {
+    console.warn('Некорректный email, форма не отправлена');
+    // Можно добавить визуальную ошибку, если нужно
+    // footerEmailInput.classList.add('footer__input--error');
+    return;
+  }
+
+  // Если всё ок — выводим объект в консоль
+  console.log({ email: emailValue });
+
+  // по заданию форму не отправляем дальше, поэтому без submit()
+});
