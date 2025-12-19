@@ -347,3 +347,129 @@ p {
   align-items: center;
   justify-content: center;
 }
+
+.modal-form {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-form__field-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-form__close-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.modal-form__close-btn:hover {
+  background-color: #e0e0e0;
+  transform: rotate(90deg);
+}
+
+.modal-form__close-btn:active {
+  transform: rotate(90deg) scale(0.95);
+}
+
+.modal-form__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.modal-form__field {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Montserrat', Arial, sans-serif;
+  color: #333;
+  background-color: #ffffff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+}
+
+.modal-form__field:focus {
+  border-color: #505076;
+  box-shadow: 0 0 0 3px rgba(80, 80, 118, 0.1);
+}
+
+.modal-form__field:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+}
+
+.modal-form__field:valid:not(:placeholder-shown) {
+  border-color: #27ae60;
+}
+
+.modal-form__field::placeholder {
+  color: #999;
+}
+
+.modal-form__registration-btn {
+  width: 100%;
+  padding: 14px 24px;
+  background-color: #505076;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Montserrat', Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 10px;
+}
+
+.modal-form__registration-btn:hover {
+  background-color: #3d3d5c;
+  transform: translateY(-2px);
+}
+
+.modal-form__registration-btn:active {
+  transform: translateY(0);
+}
+
+.modal-form__registration-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
