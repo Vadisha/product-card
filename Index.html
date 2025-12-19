@@ -10,6 +10,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="main-container">
+      <h1 class="heading">Выбери свой продукт</h1>
+      <button id="change-color-card-btn">Сменить цвет первой карточки</button>
+      <button id="change-color-cards-btn">Сменить цвет всех карточки</button>
+      <button id="open-google">Открыть Google.com</button>
+      <button class="bg-aquamarine">Изменить цвет кнопки</button>
+      <!-- 3. По аналогии из лекции — создать и реализовать шаблон для продуктовых карточек. -->
+      <ul class="product-list">    
+        <template id="card-template">
+          <li class="product_container card">
+            <img class="product_image" width="290" height="245"/>
+            <span class="product-category"></span>
+            <h3 class="product-name"></h3>
+            <p class="product-description"></p>
+            <div>
+              <span class="product-composition-text"></span>
+              <ul class="product-composition"></ul>
+            </div>
+            <div class="card_price-container">
+              <span class="product_price-text"></span>
+              <span class="product_price"></span>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </div>
     <ul id="products-list">
     <template id="card-template">
         <li class="product_container card">
