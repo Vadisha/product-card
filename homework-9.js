@@ -54,3 +54,44 @@ closeModalButton.addEventListener('click', (event) => {
 });
 
 overlay.addEventListener('click', closeModal);
+
+// 6. Создать форму для регистрации внутри модального окна. Она должна содержать поля: имя, фамилия, дата рождения, логин, пароль, повторение пароля. Используйте <label> для того, что бы указать пользователю, какое поле за что отвечает. Также важно использовать placeholder (обо всем этом можно будет почитать в документации в конце поста) Разрешается добавить поля на ваше усмотрение. Все поля должны иметь валидацию. Если пользователь ввел два разных пароля или форма невалидна (используем метод checkValidity()) - мы должны предупредить его о том, что регистрация отклонена. Если регистрация успешна - выводим значения формы в лог, как в задании №4. Дополнительно мы должны добавить к этому объекту свойство createdOn и указать туда время создания (используем сущность new Date()). Также создайте внешнюю переменную user и присвойте ей этот объект. После успешной регистрации - модалка должны закрыться.
+
+const modalForm = document.querySelector('.modal-form');
+const passwordInput = document.querySelector('#password-input');
+const checkPasswordInput = document.querySelector('#check-password-input');
+
+let user = null;
+
+modalForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  if (!modalForm.checkValidity()) {
+    alert('Регистрация отклонена: форма заполнена некорректно. Пожалуйста, заполните все поля правильно.');
+    return;
+  }
+
+  const password = passwordInput.value;
+  const checkPassword = checkPasswordInput.value;
+
+  if (password !== checkPassword) {
+    alert('Регистрация отклонена: пароли не совпадают.');
+    return;
+  }
+
+  const formData = new FormData(modalForm);
+  user = {
+    surname: formData.get('user-surname'),
+    name: formData.get('user-name'),
+    birthDate: formData.get('register-date'),
+    login: formData.get('login'),
+    password: password,
+    createdOn: new Date()
+  };
+
+  console.log(user);
+
+  closeModal();
+
+  modalForm.reset();
+});
