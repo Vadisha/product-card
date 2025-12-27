@@ -1,8 +1,10 @@
+import { Form } from './Form.js';
+import { Modal } from './Modal.js';
 
 // 4. К Форме, которая прикреплена в футере - добавить логику:
 // email должен соответствовать стандартам (добавить валидацию), если он не заполнен - форма не отправляется. Кнопка "Подписаться" и есть "отправкой формы", при нажатии на которую мы будем выводить консоль лог в виде объекта:  { email: 'введенная почта' }
 
-const footerForm = document.querySelector('.footer__form');
+const footerFormInstance = new Form('footer-form');
 const footerEmailInput = document.querySelector('#footer-email');
 
 function isValidEmail(email) {
@@ -11,12 +13,17 @@ function isValidEmail(email) {
   return emailPattern.test(email);
 }
 
-footerForm.addEventListener('submit', (event) => {
+footerFormInstance.formElement.addEventListener('submit', (event) => {
   event.preventDefault();
+
+  if (!footerFormInstance.isValid()) {
+    console.warn('Некорректный email, форма не отправлена');
+    return;
+  }
 
   const emailValue = footerEmailInput.value.trim();
 
-  if (!emailValue || !isValidEmail(emailValue)) {
+  if (!isValidEmail(emailValue)) {
     console.warn('Некорректный email, форма не отправлена');
     return;
   }
@@ -32,41 +39,35 @@ footerForm.addEventListener('submit', (event) => {
 //2) Модальное окно находиться ровно по центру страницы, независимо от масштаба
 
 const registrationButton = document.querySelector('#registration-button');
-const modal = document.querySelector('.modal');
-const overlay = document.querySelector('.overlay');
+const modalInstance = new Modal('registration-modal');
 const closeModalButton = document.querySelector('.modal-form__close-btn');
+const overlay = document.querySelector('#overlay');
 
-function openModal() {
-  modal.classList.add('modal--showed');
-  overlay.classList.add('overlay--showed');
-}
-
-function closeModal() {
-  modal.classList.remove('modal--showed');
-  overlay.classList.remove('overlay--showed');
-}
-
-registrationButton.addEventListener('click', openModal);
+registrationButton.addEventListener('click', () => {
+  modalInstance.open();
+});
 
 closeModalButton.addEventListener('click', (event) => {
   event.preventDefault(); 
-  closeModal();
+  modalInstance.close();
 });
 
-overlay.addEventListener('click', closeModal);
+overlay.addEventListener('click', () => {
+  modalInstance.close();
+});
 
 // 6. Создать форму для регистрации внутри модального окна. Она должна содержать поля: имя, фамилия, дата рождения, логин, пароль, повторение пароля. Используйте <label> для того, что бы указать пользователю, какое поле за что отвечает. Также важно использовать placeholder (обо всем этом можно будет почитать в документации в конце поста) Разрешается добавить поля на ваше усмотрение. Все поля должны иметь валидацию. Если пользователь ввел два разных пароля или форма невалидна (используем метод checkValidity()) - мы должны предупредить его о том, что регистрация отклонена. Если регистрация успешна - выводим значения формы в лог, как в задании №4. Дополнительно мы должны добавить к этому объекту свойство createdOn и указать туда время создания (используем сущность new Date()). Также создайте внешнюю переменную user и присвойте ей этот объект. После успешной регистрации - модалка должны закрыться.
 
-const modalForm = document.querySelector('.modal-form');
+const modalFormInstance = new Form('modal-form');
 const passwordInput = document.querySelector('#password-input');
 const checkPasswordInput = document.querySelector('#check-password-input');
 
 let user = null;
 
-modalForm.addEventListener('submit', (event) => {
+modalFormInstance.formElement.addEventListener('submit', (event) => {
   event.preventDefault();
 
-  if (!modalForm.checkValidity()) {
+  if (!modalFormInstance.isValid()) {
     alert('Регистрация отклонена: форма заполнена некорректно. Пожалуйста, заполните все поля правильно.');
     return;
   }
@@ -79,19 +80,19 @@ modalForm.addEventListener('submit', (event) => {
     return;
   }
 
-  const formData = new FormData(modalForm);
+  const formData = modalFormInstance.getFormData();
   user = {
-    surname: formData.get('user-surname'),
-    name: formData.get('user-name'),
-    birthDate: formData.get('register-date'),
-    login: formData.get('login'),
+    surname: formData['user-surname'],
+    name: formData['user-name'],
+    birthDate: formData['register-date'],
+    login: formData['login'],
     password: password,
     createdOn: new Date()
   };
 
   console.log(user);
 
-  closeModal();
+  modalInstance.close();
 
-  modalForm.reset();
+  modalFormInstance.resetForm();
 });

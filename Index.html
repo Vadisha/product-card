@@ -186,7 +186,7 @@
 
             <div class="footer__subscribe">
                 <h3 class="footer__subtitle">Подпишись на наши акции</h3>
-                <form class="footer__form" action="#" method="get">
+                <form class="footer__form" id="footer-form" action="#" method="get">
                     <label class="footer__label" for="footer-email">
                         Оставьте свой e-mail и получайте выгодные предложения
                     </label>
@@ -234,10 +234,10 @@
         </div>
     </footer>
 
-    <div class="overlay"></div>
+    <div class="overlay" id="overlay"></div>
 
-    <div class="modal">
-        <form class="modal-form" action="#" method="GET">
+    <div class="modal" id="registration-modal">
+        <form class="modal-form" id="modal-form" action="#" method="GET">
             <button class="modal-form__close-btn" type="button">X</button>
             
             <!-- 6. Создать форму для регистрации внутри модального окна. Она должна содержать поля: имя, фамилия, дата рождения, логин, пароль, повторение пароля. Используйте <label> для того, что бы указать пользователю, какое поле за что отвечает. Также важно использовать placeholder (обо всем этом можно будет почитать в документации в конце поста) Разрешается добавить поля на ваше усмотрение. Все поля должны иметь валидацию. Если пользователь ввел два разных пароля или форма невалидна (используем метод checkValidity()) - мы должны предупредить его о том, что регистрация отклонена. Если регистрация успешна - выводим значения формы в лог, как в задании №4. Дополнительно мы должны добавить к этому объекту свойство createdOn и указать туда время создания (используем сущность new Date()). Также создайте внешнюю переменную user и присвойте ей этот объект. После успешной регистрации - модалка должны закрыться. -->
@@ -266,10 +266,8 @@
                 <label class="modal-form__label" for="check-password-input">Введите пароль повторно</label>
                 <input class="modal-form__field" name="check-password" id="check-password-input" type="password" required>
             </div>
-        </div>
-        </li>
-    </ul>
-  </main>
+        </form>
+    </div>
     <script type="module" src="main.js"></script>
 </body>
 </html>
