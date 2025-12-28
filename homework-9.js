@@ -39,22 +39,13 @@ footerFormInstance.formElement.addEventListener('submit', (event) => {
 //2) Модальное окно находиться ровно по центру страницы, независимо от масштаба
 
 const registrationButton = document.querySelector('#registration-button');
-const modalInstance = new Modal('registration-modal');
-const closeModalButton = document.querySelector('.modal-form__close-btn');
-const overlay = document.querySelector('#overlay');
+const registrationModal = new Modal('registration-modal');
 
 registrationButton.addEventListener('click', () => {
-  modalInstance.open();
+  registrationModal.open();
 });
 
-closeModalButton.addEventListener('click', (event) => {
-  event.preventDefault(); 
-  modalInstance.close();
-});
-
-overlay.addEventListener('click', () => {
-  modalInstance.close();
-});
+registrationModal.setupEventListeners('.modal-form__close-btn');
 
 // 6. Создать форму для регистрации внутри модального окна. Она должна содержать поля: имя, фамилия, дата рождения, логин, пароль, повторение пароля. Используйте <label> для того, что бы указать пользователю, какое поле за что отвечает. Также важно использовать placeholder (обо всем этом можно будет почитать в документации в конце поста) Разрешается добавить поля на ваше усмотрение. Все поля должны иметь валидацию. Если пользователь ввел два разных пароля или форма невалидна (используем метод checkValidity()) - мы должны предупредить его о том, что регистрация отклонена. Если регистрация успешна - выводим значения формы в лог, как в задании №4. Дополнительно мы должны добавить к этому объекту свойство createdOn и указать туда время создания (используем сущность new Date()). Также создайте внешнюю переменную user и присвойте ей этот объект. После успешной регистрации - модалка должны закрыться.
 
@@ -82,17 +73,14 @@ modalFormInstance.formElement.addEventListener('submit', (event) => {
 
   const formData = modalFormInstance.getFormData();
   user = {
-    surname: formData['user-surname'],
-    name: formData['user-name'],
-    birthDate: formData['register-date'],
-    login: formData['login'],
+    ...formData,
     password: password,
     createdOn: new Date()
   };
 
   console.log(user);
 
-  modalInstance.close();
+  registrationModal.close();
 
   modalFormInstance.resetForm();
 });
