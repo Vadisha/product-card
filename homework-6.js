@@ -31,7 +31,7 @@ console.log(infoAboutVehicle);
 //5. Написал функцию которая аргументом будет принимать объект, описанный в пункте №4. 
 
 function checkMaxSpeed(infoAboutVehicle) {
-  if (!vehicle.hasOwnProperty("maxSpeed")) {
+  if (!infoAboutVehicle.hasOwnProperty("maxSpeed")) {
     infoAboutVehicle.maxSpeed = 185;
   }
 }
