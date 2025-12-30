@@ -11,18 +11,18 @@ import './Modal.js'
 import './Form.js'
 
 const productCards = document.querySelectorAll('.card-container');
-const changeCollorAllButton = document.querySelector('#change-color-all-card');
-const greenCollorHash = '#00FF00';
-const blueCollorHash = '#2e2eccff';
+const changeColorAllButton = document.querySelector('#change-color-all-card');
+const greenColorHash = '#00FF00';
+const blueColorHash = '#2e2eccff';
 
-changeCollorAllCardButton.addEventListener('click', () => {
-  productCards.forEach((card) => card.style.backgroundColor = greenCollorHash)
+changeColorAllButton.addEventListener('click', () => {
+  productCards.forEach((card) => card.style.backgroundColor = greenColorHash)
 })
 
 
 const productCard = document.querySelector('.card-container');
-const changeCollorFirstButton = document.querySelector('#change-color-first-card');
-changeCollorFirstCardButton.addEventListener('click', () => {
-  productCard.style.backgroundColor = blueCollorHash;
+const changeColorFirstButton = document.querySelector('#change-color-first-card');
+changeColorFirstButton.addEventListener('click', () => {
+  productCard.style.backgroundColor = blueColorHash;
 })
 
