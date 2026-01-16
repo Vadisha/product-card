@@ -5,16 +5,13 @@ export class Coffee extends Drink {
     this.milk = milk;
   }
   getCoffeeInfo() {
-    return `${super.getInfoDrink()}, Зерна: ${this.beanType}, Молоко: ${this.milk ? "да" : "нет"}`;
+    return `${super.getInfoDrink()}, Зерна: ${this.beanType}, Молоко: ${
+      this.milk ? "да" : "нет"
+    }`;
   }
-  
+
   orderCoffee(drink) {
     const served = drink.serveDrink();
-  
-  return `Заказ принят! ${served}`;
-  }
-  
-  getDrinkInfo(drink) {
-    return drink.getInfoDrink();
+    return `Заказ принят! ${served}`;
   }
 }
