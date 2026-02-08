@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Async Data Loading</title>
+  <link rel="stylesheet" href="async.css">
+</head>
+<body>
+  <div class="container">
+    <div id="status-message" class="status-message"></div>
+    
+    <div id="controls" class="controls" style="display: none;">
+      <button id="delete-all-btn" class="btn btn-danger">Удалить все карточки</button>
+      <button id="get-all-btn" class="btn btn-primary">Получить все карточки</button>
+      <button id="restore-btn" class="btn btn-success">Восстановить удаленных</button>
+    </div>
+    
+    <div id="cards-container" class="cards-container"></div>
+  </div>
+
+  <script type="module" src="async.js"></script>
+</body>
+</html>
