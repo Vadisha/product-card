@@ -1,86 +1,65 @@
+// Ключ для локального хранилища
 const STORAGE_KEY = 'usersData';
-const DELETED_STORAGE_KEY = 'deletedUsers';
 
+// Элементы DOM
 const statusMessage = document.getElementById('status-message');
 const cardsContainer = document.getElementById('cards-container');
 const controls = document.getElementById('controls');
 const deleteAllBtn = document.getElementById('delete-all-btn');
 const getAllBtn = document.getElementById('get-all-btn');
-const restoreBtn = document.getElementById('restore-btn');
 
+// Текущее состояние
 let users = [];
-let deletedUsers = [];
 
+// Инициализация
 document.addEventListener('DOMContentLoaded', async () => {
   await init();
   setupEventListeners();
 });
 
 async function init() {
-  loadDeletedUsers();
-  
   const storedData = localStorage.getItem(STORAGE_KEY);
-  
+
   if (storedData) {
     try {
       users = JSON.parse(storedData);
-      if (users.length > 0) {
+      if (Array.isArray(users) && users.length > 0) {
         displayUsers(users);
         showControls();
         return;
       }
-    } catch (error) {
-      console.error('Ошибка при парсинге данных из localStorage:', error);
+    } catch (e) {
+      console.error('Ошибка парсинга localStorage:', e);
       localStorage.removeItem(STORAGE_KEY);
     }
   }
-  
-  showStatusMessage('Данные загружаются');
+
+  // Если данных нет — показываем "Данные загружаются" и грузим из JSON
+  showStatusMessage('Данные загружаются', 'loading');
   await loadUsers();
-}
-
-function loadDeletedUsers() {
-  const storedDeleted = localStorage.getItem(DELETED_STORAGE_KEY);
-  if (storedDeleted) {
-    try {
-      deletedUsers = JSON.parse(storedDeleted);
-    } catch (error) {
-      console.error('Ошибка при загрузке удаленных пользователей:', error);
-      deletedUsers = [];
-    }
-  }
-}
-
-function saveDeletedUsers() {
-  localStorage.setItem(DELETED_STORAGE_KEY, JSON.stringify(deletedUsers));
 }
 
 async function loadUsers() {
   try {
+    // Симуляция долгой загрузки
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     const response = await fetch('users.json');
-    
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`Ошибка загрузки: ${response.status}`);
     }
-    
+
     const data = await response.json();
-    
-    const storedData = localStorage.getItem(STORAGE_KEY);
-    if (!storedData) {
-      users = Array.isArray(data) ? data : data.users || [];
-      saveToLocalStorage();
-    } else {
-      users = JSON.parse(storedData);
-    }
-    
+    const loadedUsers = Array.isArray(data) ? data : data.users || [];
+
+    users = loadedUsers;
+    saveToLocalStorage();
+
     displayUsers(users);
     showControls();
     hideStatusMessage();
-    
   } catch (error) {
-    console.error('Ошибка при загрузке данных:', error);
+    console.error(error);
     showStatusMessage('Ошибка при загрузке данных', 'error');
     hideControls();
   }
@@ -90,29 +69,33 @@ function saveToLocalStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
 }
 
-function displayUsers(usersToDisplay) {
+// Рендер карточек
+function displayUsers(list) {
   cardsContainer.innerHTML = '';
-  
-  if (usersToDisplay.length === 0) {
+
+  if (!Array.isArray(list) || list.length === 0) {
     showStatusMessage('Нет пользователей для отображения', 'info');
     return;
   }
-  
-  usersToDisplay.forEach((user, index) => {
-    const card = createUserCard(user, index);
+
+  hideStatusMessage();
+
+  list.forEach(user => {
+    const card = createUserCard(user);
     cardsContainer.appendChild(card);
   });
 }
 
-function createUserCard(user, index) {
+function createUserCard(user) {
   const card = document.createElement('div');
   card.className = 'user-card';
-  card.dataset.index = index;
-  
+
+  const id = user.id ?? crypto.randomUUID?.() ?? Math.random().toString(36).slice(2);
+
   card.innerHTML = `
     <div class="card-header">
       <h3>${user.name || 'Без имени'}</h3>
-      <button class="delete-card-btn" data-id="${user.id || index}">×</button>
+      <button class="delete-card-btn" data-id="${id}">×</button>
     </div>
     <div class="card-body">
       <p><strong>Email:</strong> ${user.email || 'Не указан'}</p>
@@ -121,116 +104,89 @@ function createUserCard(user, index) {
       ${user.company ? `<p><strong>Компания:</strong> ${user.company}</p>` : ''}
     </div>
   `;
-  
+
   const deleteBtn = card.querySelector('.delete-card-btn');
   deleteBtn.addEventListener('click', () => {
-    deleteUserCard(user.id || index);
+    deleteUser(id);
   });
-  
+
+  // Присваиваем id в объект (чтобы работали удаления через filter)
+  if (!user.id) {
+    user.id = id;
+    saveToLocalStorage();
+  }
+
   return card;
 }
 
-function deleteUserCard(userId) {
-  const userToDelete = users.find(user => (user.id || users.indexOf(user)) === userId);
-  
-  if (userToDelete) {
-    deletedUsers.push(userToDelete);
-    saveDeletedUsers();
-    
-    users = users.filter(user => (user.id || users.indexOf(user)) !== userId);
-    
+// Удаление одного пользователя
+function deleteUser(userId) {
+  const initialLength = users.length;
+  users = users.filter(user => String(user.id) !== String(userId));
+
+  if (users.length < initialLength) {
     saveToLocalStorage();
     displayUsers(users);
     showStatusMessage('Карточка удалена', 'success');
-    setTimeout(() => hideStatusMessage(), 2000);
+    setTimeout(hideStatusMessage, 1500);
   }
 }
 
+// Удаление всех карточек
 function deleteAllCards() {
   if (users.length === 0) {
     showStatusMessage('Нет карточек для удаления', 'info');
-    setTimeout(() => hideStatusMessage(), 2000);
+    setTimeout(hideStatusMessage, 1500);
     return;
   }
-  
-  deletedUsers = [...deletedUsers, ...users];
-  saveDeletedUsers();
-  
+
   users = [];
   saveToLocalStorage();
   displayUsers(users);
   hideControls();
   showStatusMessage('Все карточки удалены', 'success');
-  setTimeout(() => hideStatusMessage(), 2000);
+  setTimeout(hideStatusMessage, 1500);
 }
 
+// Получить все карточки из localStorage
 function getAllCards() {
-  const storedData = localStorage.getItem(STORAGE_KEY);
-  
-  if (!storedData) {
-    showStatusMessage('Нет сохраненных данных', 'info');
-    setTimeout(() => hideStatusMessage(), 2000);
+  const stored = localStorage.getItem(STORAGE_KEY);
+
+  if (!stored) {
+    showStatusMessage('Нет сохранённых данных', 'info');
+    setTimeout(hideStatusMessage, 1500);
     return;
   }
-  
+
   try {
-    const allUsers = JSON.parse(storedData);
-    
-    if (users.length === allUsers.length && users.length > 0) {
-      showStatusMessage('Все пользователи уже отображены', 'info');
-      setTimeout(() => hideStatusMessage(), 2000);
+    const allUsers = JSON.parse(stored);
+
+    if (!Array.isArray(allUsers) || allUsers.length === 0) {
+      showStatusMessage('Нет данных для отображения', 'info');
+      setTimeout(hideStatusMessage, 1500);
       return;
     }
-    
+
+    if (users.length === allUsers.length && users.length > 0) {
+      showStatusMessage('Все пользователи уже отображены', 'info');
+      setTimeout(hideStatusMessage, 1500);
+      return;
+    }
+
     users = allUsers;
     displayUsers(users);
     showControls();
-    showStatusMessage('Все карточки загружены', 'success');
-    setTimeout(() => hideStatusMessage(), 2000);
-    
-  } catch (error) {
-    console.error('Ошибка при получении всех карточек:', error);
+    showStatusMessage('Все карточки получены', 'success');
+    setTimeout(hideStatusMessage, 1500);
+  } catch (e) {
+    console.error(e);
     showStatusMessage('Ошибка при загрузке данных', 'error');
   }
 }
 
-function restoreDeletedUsers() {
-  if (deletedUsers.length === 0) {
-    showStatusMessage('Нет удаленных пользователей для восстановления', 'info');
-    setTimeout(() => hideStatusMessage(), 2000);
-    return;
-  }
-  
-  users = [...users, ...deletedUsers];
-  saveToLocalStorage();
-  
-  deletedUsers = [];
-  saveDeletedUsers();
-  
-  displayUsers(users);
-  showControls();
-  showStatusMessage(`Восстановлено ${deletedUsers.length} пользователей`, 'success');
-  setTimeout(() => hideStatusMessage(), 2000);
-}
-
-function restoreUser(userId) {
-  const userToRestore = deletedUsers.find(user => user.id === userId);
-  
-  if (userToRestore) {
-    users.push(userToRestore);
-    saveToLocalStorage();
-    
-    deletedUsers = deletedUsers.filter(user => user.id !== userId);
-    saveDeletedUsers();
-    
-    displayUsers(users);
-    showStatusMessage('Пользователь восстановлен', 'success');
-    setTimeout(() => hideStatusMessage(), 2000);
-  }
-}
-
-function showStatusMessage(message, type = 'loading') {
-  statusMessage.textContent = message;
+// Статусы / управление кнопками
+function showStatusMessage(text, type = 'loading') {
+  statusMessage.textContent = text;
   statusMessage.className = `status-message status-${type}`;
   statusMessage.style.display = 'block';
 }
@@ -250,5 +206,4 @@ function hideControls() {
 function setupEventListeners() {
   deleteAllBtn.addEventListener('click', deleteAllCards);
   getAllBtn.addEventListener('click', getAllCards);
-  restoreBtn.addEventListener('click', restoreDeletedUsers);
 }
