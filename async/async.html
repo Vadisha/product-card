@@ -20,6 +20,21 @@
     <div id="cards-container" class="cards-container"></div>
   </div>
 
+  <template id="user-card-template">
+    <div class="user-card">
+      <div class="card-header">
+        <h3 class="card-name">Без имени</h3>
+        <button class="delete-card-btn">×</button>
+      </div>
+      <div class="card-body">
+        <p><strong>Email:</strong> <span class="card-email">Не указан</span></p>
+        <p><strong>Телефон:</strong> <span class="card-phone">Не указан</span></p>
+        <p class="card-address" style="display: none;"><strong>Адрес:</strong> <span class="card-address-text"></span></p>
+        <p class="card-company" style="display: none;"><strong>Компания:</strong> <span class="card-company-text"></span></p>
+      </div>
+    </div>
+  </template>
+
   <script src="async.js"></script>
 </body>
 </html>
