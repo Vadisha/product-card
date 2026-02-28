@@ -47,10 +47,11 @@ body {
   color: #0c5460;
 }
 
-.controls {
+.buttons {
   display: none;
   gap: 8px;
   margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -88,26 +89,18 @@ body {
 
 .card-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+  flex-direction: column;
+  gap: 4px;
 }
 
-.card-header h3 {
-  font-size: 16px;
-}
-
-.delete-card-btn {
-  border: none;
-  background: #dc3545;
-  color: #fff;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-.card-body p {
+.card-header p {
   font-size: 14px;
+  margin: 0;
+  padding: 2px 0;
+}
+
+.card-header .id {
+  font-weight: bold;
+  font-size: 16px;
   margin-bottom: 4px;
 }

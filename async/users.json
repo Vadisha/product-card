@@ -1,42 +1,44 @@
-[
-  {
-    "id": 1,
-    "name": "Иван Иванов",
-    "email": "ivan@example.com",
-    "phone": "+7 (999) 123-45-67",
-    "address": "Москва, ул. Ленина, д. 10",
-    "company": "ООО Технологии"
-  },
-  {
-    "id": 2,
-    "name": "Мария Петрова",
-    "email": "maria@example.com",
-    "phone": "+7 (999) 234-56-78",
-    "address": "Санкт-Петербург, Невский пр., д. 20",
-    "company": "ИП Петрова"
-  },
-  {
-    "id": 3,
-    "name": "Алексей Сидоров",
-    "email": "alex@example.com",
-    "phone": "+7 (999) 345-67-89",
-    "address": "Казань, ул. Баумана, д. 5",
-    "company": "ЗАО Инновации"
-  },
-  {
-    "id": 4,
-    "name": "Елена Козлова",
-    "email": "elena@example.com",
-    "phone": "+7 (999) 456-78-90",
-    "address": "Новосибирск, пр. Ленина, д. 15",
-    "company": "ООО Разработка"
-  },
-  {
-    "id": 5,
-    "name": "Николай Смирнов",
-    "email": "dmitry@example.com",
-    "phone": "+7 (999) 567-89-01",
-    "address": "Екатеринбург, ул. Мира, д. 8",
-    "company": "ИП Смирнов"
-  }
-]
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Иван",
+      "surname": "Иванов",
+      "email": "ivan@example.com",
+      "age": 25,
+      "height": 180
+    },
+    {
+      "id": 2,
+      "name": "Мария",
+      "surname": "Петрова",
+      "email": "maria@example.com",
+      "age": 28,
+      "height": 165
+    },
+    {
+      "id": 3,
+      "name": "Алексей",
+      "surname": "Сидоров",
+      "email": "alex@example.com",
+      "age": 30,
+      "height": 175
+    },
+    {
+      "id": 4,
+      "name": "Елена",
+      "surname": "Козлова",
+      "email": "elena@example.com",
+      "age": 27,
+      "height": 170
+    },
+    {
+      "id": 5,
+      "name": "Николай",
+      "surname": "Смирнов",
+      "email": "dmitry@example.com",
+      "age": 32,
+      "height": 185
+    }
+  ]
+}

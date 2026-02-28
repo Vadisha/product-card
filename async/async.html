@@ -8,29 +8,28 @@
 </head>
 <body>
   <div class="container">
-    <div id="status-message" class="status-message status-loading">
-      Данные загружаются
+    <div id="loader" class="status-message status-loading"></div>
+
+    <button id="cards-btn" class="btn btn-primary">Загрузить карточки</button>
+
+    <div class="buttons" style="display: none;">
+      <button id="get-cards" class="btn btn-primary" style="display: none;">Получить все карточки</button>
+      <button id="delete-all-cards" class="btn btn-danger">Удалить все карточки</button>
+      <button id="delete-card" class="btn btn-danger">Удалить первую карточку</button>
     </div>
 
-    <div id="controls" class="controls">
-      <button id="delete-all-btn" class="btn btn-danger">Удалить все карточки</button>
-      <button id="get-all-btn" class="btn btn-primary">Получить все карточки</button>
-    </div>
-
-    <div id="cards-container" class="cards-container"></div>
+    <div id="user-cards" class="cards-container"></div>
   </div>
 
-  <template id="user-card-template">
+  <template id="user-template">
     <div class="user-card">
       <div class="card-header">
-        <h3 class="card-name">Без имени</h3>
-        <button class="delete-card-btn">×</button>
-      </div>
-      <div class="card-body">
-        <p><strong>Email:</strong> <span class="card-email">Не указан</span></p>
-        <p><strong>Телефон:</strong> <span class="card-phone">Не указан</span></p>
-        <p class="card-address" style="display: none;"><strong>Адрес:</strong> <span class="card-address-text"></span></p>
-        <p class="card-company" style="display: none;"><strong>Компания:</strong> <span class="card-company-text"></span></p>
+        <p class="id"></p>
+        <p class="name"></p>
+        <p class="surname"></p>
+        <p class="email"></p>
+        <p class="age"></p>
+        <p class="height"></p>
       </div>
     </div>
   </template>
