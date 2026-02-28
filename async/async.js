@@ -9,16 +9,38 @@ const buttons = document.querySelector('.buttons');
 
 const STORAGE_KEY = 'users';
 
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+  clearLoader();
+  
+  // Проверка наличия всех необходимых элементов
+  if (!loader) console.warn('Элемент loader не найден');
+  if (!cardsGet) console.warn('Элемент cardsGet не найден');
+  if (!allCardsDelete) console.warn('Элемент allCardsDelete не найден');
+  if (!cardDeleteBtn) console.warn('Элемент cardDeleteBtn не найден');
+  if (!userCards) console.warn('Элемент userCards не найден');
+  if (!userTemplate) console.warn('Элемент userTemplate не найден');
+  if (!cardsLoadBtn) console.warn('Элемент cardsLoadBtn не найден');
+  if (!buttons) console.warn('Элемент buttons не найден');
+});
+
 function showLoader(text) {
-  loader.textContent = text;
+  if (loader) {
+    loader.textContent = text;
+    loader.style.display = 'block';
+  }
 }
 
 function clearLoader() {
-  loader.textContent = '';
+  if (loader) {
+    loader.textContent = '';
+    loader.style.display = 'none';
+  }
 }
 
 function getFromStorage() {
-  return JSON.parse(localStorage.getItem(STORAGE_KEY));
+  const data = localStorage.getItem(STORAGE_KEY);
+  return data ? JSON.parse(data) : null;
 }
 
 function setToStorage(data) {
@@ -26,93 +48,142 @@ function setToStorage(data) {
 }
 
 function renderUsers(users) {
+  if (!userCards || !userTemplate) {
+    console.error('Элементы userCards или userTemplate не найдены');
+    return;
+  }
+
+  if (!users || !Array.isArray(users) || users.length === 0) {
+    console.warn('Нет данных для отображения');
+    return;
+  }
+
   userCards.innerHTML = '';
 
   users.forEach(user => {
     const clone = userTemplate.content.cloneNode(true);
-    clone.querySelector('.id').textContent = `User ID: ${user.id}`;
-    clone.querySelector('.name').textContent = `Name: ${user.name}`;
-    clone.querySelector('.surname').textContent = `Surname: ${user.surname}`;
-    clone.querySelector('.email').textContent = `E-mail: ${user.email}`;
-    clone.querySelector('.age').textContent = `Age: ${user.age}`;
-    clone.querySelector('.height').textContent = `Height: ${user.height}`;
+    const idEl = clone.querySelector('.id');
+    const nameEl = clone.querySelector('.name');
+    const surnameEl = clone.querySelector('.surname');
+    const emailEl = clone.querySelector('.email');
+    const ageEl = clone.querySelector('.age');
+    const heightEl = clone.querySelector('.height');
+
+    if (idEl) idEl.textContent = `User ID: ${user.id}`;
+    if (nameEl) nameEl.textContent = `Name: ${user.name}`;
+    if (surnameEl) surnameEl.textContent = `Surname: ${user.surname}`;
+    if (emailEl) emailEl.textContent = `E-mail: ${user.email}`;
+    if (ageEl) ageEl.textContent = `Age: ${user.age}`;
+    if (heightEl) heightEl.textContent = `Height: ${user.height}`;
+    
     userCards.appendChild(clone);
   });
 }
 
 async function fetchUsersFromServer() {
-  const response = await fetch('/async/users.json');
-  const data = await response.json();
-  return data.users;
+  try {
+    const response = await fetch('users.json');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json();
+    return data.users;
+  } catch (error) {
+    console.error('Ошибка загрузки данных:', error);
+    showLoader('Ошибка загрузки данных');
+    throw error;
+  }
 }
 
 function loadUsers() {
   showLoader('Данные загружаются...');
 
-  return new Promise(async (resolve) => {
+  return new Promise(async (resolve, reject) => {
     setTimeout(async () => {
-      let users = getFromStorage();
+      try {
+        let users = getFromStorage();
 
-      if (users && users.length) {
-        resolve(users);
-      } else {
-        users = await fetchUsersFromServer();
-        setToStorage(users);
-        resolve(users);
+        if (users && users.length) {
+          resolve(users);
+        } else {
+          users = await fetchUsersFromServer();
+          setToStorage(users);
+          resolve(users);
+        }
+      } catch (error) {
+        reject(error);
       }
     }, 1000);
   });
 }
 
-cardsLoadBtn.addEventListener('click', async () => {
-  cardsLoadBtn.style.display = 'none';
-  buttons.style.display = 'flex';
-  cardsGet.style.display = 'block';
+if (cardsLoadBtn) {
+  cardsLoadBtn.addEventListener('click', async () => {
+    if (cardsLoadBtn) cardsLoadBtn.style.display = 'none';
+    if (buttons) buttons.style.display = 'flex';
+    if (cardsGet) cardsGet.style.display = 'block';
 
-  showLoader('Данные загружаются...');
-
-  const users = await loadUsers();
-  renderUsers(users);
-
-  clearLoader();
-});
-
-cardsGet.addEventListener('click', async () => {
-  let users = getFromStorage();
-
-  if (!users || !users.length) {
     showLoader('Данные загружаются...');
-    users = await loadUsers();
-    clearLoader();
-  }
 
-  renderUsers(users);
-});
+    try {
+      const users = await loadUsers();
+      renderUsers(users);
+      clearLoader();
+    } catch (error) {
+      console.error('Ошибка:', error);
+      showLoader('Ошибка загрузки данных. Проверьте консоль.');
+    }
+  });
+}
 
-allCardsDelete.addEventListener('click', () => {
-  setTimeout(() => {
-    localStorage.removeItem(STORAGE_KEY);
-    userCards.innerHTML = '';
-    showLoader('Данные удалены');
-  }, 500);
-});
+if (cardsGet) {
+  cardsGet.addEventListener('click', async () => {
+    let users = getFromStorage();
 
-cardDeleteBtn.addEventListener('click', () => {
-  let users = getFromStorage();
+    if (!users || !users.length) {
+      showLoader('Данные загружаются...');
+      try {
+        users = await loadUsers();
+        clearLoader();
+      } catch (error) {
+        console.error('Ошибка:', error);
+        showLoader('Ошибка загрузки данных. Проверьте консоль.');
+        return;
+      }
+    }
 
-  if (!users || !users.length) {
-    localStorage.removeItem(STORAGE_KEY);
-    userCards.innerHTML = '';
-    return;
-  }
+    renderUsers(users);
+  });
+}
 
-  users = users.slice(1);
+if (allCardsDelete) {
+  allCardsDelete.addEventListener('click', () => {
+    setTimeout(() => {
+      localStorage.removeItem(STORAGE_KEY);
+      if (userCards) userCards.innerHTML = '';
+      showLoader('Данные удалены');
+    }, 500);
+  });
+}
 
-  if (!users.length) {
-    localStorage.removeItem(STORAGE_KEY);
-  } else {
-    setToStorage(users);
-  }
+if (cardDeleteBtn) {
+  cardDeleteBtn.addEventListener('click', () => {
+    let users = getFromStorage();
 
-  renderUsers(users);
-});
+    if (!users || !users.length) {
+      localStorage.removeItem(STORAGE_KEY);
+      if (userCards) userCards.innerHTML = '';
+      return;
+    }
+
+    users = users.slice(1);
+
+    if (!users.length) {
+      localStorage.removeItem(STORAGE_KEY);
+    } else {
+      setToStorage(users);
+    }
+
+    renderUsers(users);
+  });
+}
