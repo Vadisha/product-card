@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>Async Users</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="async.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Users-card</title>
+    <!-- относительный путь -->
+    <link rel="stylesheet" href="./async.css">
 </head>
 <body>
-  <div class="container">
-    <div id="loader" class="status-message status-loading"></div>
-
-    <button id="cards-btn" class="btn btn-primary">Загрузить карточки</button>
-
-    <div class="buttons" style="display: none;">
-      <button id="get-cards" class="btn btn-primary" style="display: none;">Получить все карточки</button>
-      <button id="delete-all-cards" class="btn btn-danger">Удалить все карточки</button>
-      <button id="delete-card" class="btn btn-danger">Удалить первую карточку</button>
-    </div>
-
-    <div id="user-cards" class="cards-container"></div>
+  <div class="button-container">
+    <button class="btn-delete-all-users">Удалить всех пользователей</button>
+    <button class="btn-display-all-users">Отобразить всех пользователей</button>
   </div>
 
-  <template id="user-template">
-    <div class="user-card">
-      <div class="card-header">
-        <p class="id"></p>
-        <p class="name"></p>
-        <p class="surname"></p>
-        <p class="email"></p>
-        <p class="age"></p>
-        <p class="height"></p>
-      </div>
+  <span class="users-loading">
+    Данные загружаются...
+  </span>
+
+  <div class="users-list"></div>
+
+  <template class="user-data-template">
+    <div class="users-div-container">
+      <img class="user-img" src="" alt="" height="200" width="200">
+      <h3 class="user-name"></h3>
+      <h3 class="user-surname"></h3>
+      <span class="user-id"></span>
+      <a class="user-email"></a>
+      <p class="user-age"></p>
+      <button class="btn-delete-user">Удалить пользователя</button>
     </div>
   </template>
 
-  <script src="async.js"></script>
+  <!-- относительный путь к модулю -->
+  <script type="module" src="./async.js"></script>
 </body>
 </html>
