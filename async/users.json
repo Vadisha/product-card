@@ -2,40 +2,45 @@
   "users": [
     {
       "id": 1,
-      "name": "Иван",
-      "surname": "Иванов",
+      "img": "user",
+      "name": "Ivan",
+      "surname": "Ivanov",
       "email": "ivan@example.com",
       "age": 25,
       "height": 180
     },
     {
       "id": 2,
-      "name": "Мария",
-      "surname": "Петрова",
+      "img": "user",
+      "name": "Maria",
+      "surname": "Petrova",
       "email": "maria@example.com",
       "age": 28,
       "height": 165
     },
     {
       "id": 3,
-      "name": "Алексей",
-      "surname": "Сидоров",
+      "img": "user",
+      "name": "Aleksey",
+      "surname": "Sidorov",
       "email": "alex@example.com",
       "age": 30,
       "height": 175
     },
     {
       "id": 4,
-      "name": "Елена",
-      "surname": "Козлова",
+      "img": "user",
+      "name": "Elena",
+      "surname": "Kozlova",
       "email": "elena@example.com",
       "age": 27,
       "height": 170
     },
     {
       "id": 5,
-      "name": "Николай",
-      "surname": "Смирнов",
+      "img": "user",
+      "name": "Nikolay",
+      "surname": "Smirnov",
       "email": "dmitry@example.com",
       "age": 32,
       "height": 185
