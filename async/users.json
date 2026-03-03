@@ -1,0 +1,49 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "img": "user",
+      "name": "Ivan",
+      "surname": "Ivanov",
+      "email": "ivan@example.com",
+      "age": 25,
+      "height": 180
+    },
+    {
+      "id": 2,
+      "img": "user",
+      "name": "Maria",
+      "surname": "Petrova",
+      "email": "maria@example.com",
+      "age": 28,
+      "height": 165
+    },
+    {
+      "id": 3,
+      "img": "user",
+      "name": "Aleksey",
+      "surname": "Sidorov",
+      "email": "alex@example.com",
+      "age": 30,
+      "height": 175
+    },
+    {
+      "id": 4,
+      "img": "user",
+      "name": "Elena",
+      "surname": "Kozlova",
+      "email": "elena@example.com",
+      "age": 27,
+      "height": 170
+    },
+    {
+      "id": 5,
+      "img": "user",
+      "name": "Nikolay",
+      "surname": "Smirnov",
+      "email": "dmitry@example.com",
+      "age": 32,
+      "height": 185
+    }
+  ]
+}
