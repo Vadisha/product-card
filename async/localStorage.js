@@ -13,4 +13,12 @@ export function getFromStorage(key) {
 
 export function updateStorageDataByFilter(key, operandItemThatBeingFiltered) {
   const data = getFromStorage(key);
+  
+ if (data && data.users) {
+  data.users = data.users.filter(
+    dataItem => dataItem.id !== String(operandItemThatBeingFiltered)
+  );
+
+  setToStorage(key, data);
+}
 }
